@@ -1,0 +1,149 @@
+/* General Styles for the Page */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 0;
+  }
+  .icon {
+    position: absolute;
+    left: 150px;
+    top:90px;
+    color: orange;
+    font-size: 48px; /* Adjust size as needed */
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.icon:hover {
+    transform: scale(1.2);
+    color: darkorange; /* Slightly darker on hover */
+    cursor: pointer;
+}
+  h1.text-center {
+    margin-top: 50px;
+    color: #333;
+    font-size: 36px;
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+  
+  /* No Item Message */
+  .no-item-message {
+    margin-top: 100px;
+    margin-left:500px; 
+    width:500px;
+    padding: 20px;
+    background-color: #f8d7da;
+    border-radius: 10px;
+    text-align: center;
+    border: 1px solid #f5c6cb;
+  }
+  
+  .no-item-message h2 {
+    color: #721c24;
+    font-size: 28px;
+    margin-bottom: 15px;
+  }
+  
+  .no-item-message p {
+    color: #6c757d;
+    font-size: 18px;
+    margin-bottom: 20px;
+  }
+  
+  .no-item-message .btn-go-home {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: white;
+    border-radius: 5px;
+    text-decoration: none;
+  }
+  
+  .no-item-message .btn-go-home:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Cart Container */
+  .container {
+    margin: 50px auto;
+    padding: 0 15px;
+    max-width: 1200px;
+  }
+  
+  /* Cart Item Card Styles */
+  .card {
+    margin-bottom: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background-color: white;
+  }
+  
+  .card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+  }
+  
+  .card-img-top {
+    width: 100%;
+    height: 18rem;
+    border-radius: 10px 0 0 10px;
+  }
+  
+  .card-body {
+    padding: 20px;
+  }
+  
+  .card-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 15px;
+  }
+  
+  .card-text {
+    font-size: 1rem;
+    color: #666;
+    margin-bottom: 15px;
+  }
+  
+  .card h1.card-title {
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: #333;
+    margin-top: 10px;
+  }
+  
+  /* Button Styles */
+  .btn {
+    margin-right:20px;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .btn-danger {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+  }
+  
+  .btn-danger:hover {
+    background-color: #c82333;
+  }
+  
+  .btn-warning {
+    background-color: #ffc107;
+    color: white;
+    border: none;
+  }
+  
+  .btn-warning:hover {
+    background-color: #e0a800;
+  }
+  
+
+  
