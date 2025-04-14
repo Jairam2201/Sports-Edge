@@ -1,0 +1,108 @@
+/* Global styles */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
+  margin: 0;
+  padding: 0;
+}
+
+
+/* Container for registration form */
+.register-container {
+  max-width: 450px;
+  margin: 80px auto;
+  padding: 40px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(11, 4, 4, 0.1);
+  box-sizing: border-box;
+  border: 3px solid #067a67; /* Light border */
+}
+
+/* Heading style */
+h2 {
+  text-align: center;
+  color: #00796b; /* Greenish color */
+  font-size: 28px;
+  margin-bottom: 30px;
+  font-weight: bold;
+}
+
+/* Form-group styles */
+.form-group {
+  margin-bottom: 20px;
+}
+
+/* Input styles */
+.form-control {
+  width: 100%;
+  padding: 14px;
+  border-radius: 8px;
+  border: 1px solid #d4d9e1; /* Soft gray border */
+  box-sizing: border-box;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  background-color: #f5f8ff; /* Light background for inputs */
+}
+
+/* Focus and Error border color */
+.form-control:focus {
+  border-color: #00796b; /* Green focus border */
+  outline: none;
+  background-color: #ffffff; /* White background on focus */
+}
+
+/* Error state for input fields */
+.form-control.ng-invalid.ng-touched {
+  border-color: #ff4d4d; /* Red border for invalid input */
+}
+
+/* Error messages */
+.text-danger {
+  font-size: 12px;
+  color: #ff4d4d; /* Red color for errors */
+}
+
+.error-msg {
+  color: #ff4d4d;
+  font-size: 14px;
+  margin-top: 10px;
+  text-align: center;
+  font-weight: bold;
+}
+
+/* Register Button styles */
+.btn {
+  background-color: #00796b; /* Teal color */
+  color: #fff;
+  border: none;
+  padding: 14px 20px;
+  width: 100%;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.btn:hover {
+  background-color: #023f35; /* Darker teal on hover */
+  transform: scale(1.05); /* Slightly enlarge button on hover */
+}
+
+/* Switch link */
+.switch-link {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.switch-link a {
+  color: #00796b; /* Greenish color for the link */
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.switch-link a:hover {
+  text-decoration: underline;
+  color: #004d40; /* Darker teal on hover */
+}

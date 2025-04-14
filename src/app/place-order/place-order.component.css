@@ -1,0 +1,174 @@
+/* Body Style */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f8f9fa;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-image: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+  }
+  
+  /* Centered Content for both No Items and Order */
+  .container {
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 60vh; /* Center content vertically */
+  }
+  
+ /* Shared Styles for No Item Message and Order Placed Message */
+.no-item-message {
+  margin-top: 100px;
+    margin-left:500px; 
+    width:500px;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif; /* Ensuring a consistent font */
+}
+
+/* No Item Message */
+.no-item-message.no-items {
+  background-color: #f8d7da; /* Light red background */
+}
+
+.no-item-message.no-items h2 {
+  color: #721c24; /* Dark red for text */
+  font-size: 28px;
+  font-weight: 600;
+}
+
+.no-item-message.no-items p {
+  font-size: 18px;
+  color: #6c757d; /* Muted text color */
+}
+
+.no-item-message.no-items a {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #007bff;
+  color: white;
+  border-radius: 5px;
+  text-decoration: none;
+}
+
+.no-item-message.no-items a:hover {
+  background-color: #0056b3;
+}
+
+/* Order Placed Message */
+.no-item-message.success {
+  background-color: #d4edda; /* Light green background for success */
+}
+
+.no-item-message.success h2 {
+  color: #155724; /* Dark green for success message */
+  font-size: 28px;
+  font-weight: 600;
+}
+
+.no-item-message.success p {
+  font-size: 18px;
+  color: #6c757d; /* Muted text color */
+}
+
+.no-item-message.success a {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #007bff;
+  color: white;
+  border-radius: 5px;
+  text-decoration: none;
+}
+
+.no-item-message.success a:hover {
+  background-color: #0056b3;
+}
+
+  
+  /* Order Item Card */
+  .card {
+    margin-top:30px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Image Style */
+  .card-img-top {
+    border-radius: 15px 15px 0 0;
+    object-fit: contain; /* Ensure image is not cut off, it will fit within the container */
+    height: auto; /* Set a fixed height */
+    width: 100%; /* Ensure the image takes full width */
+}
+
+  
+  /* Card Body */
+  .card-body {
+    padding: 20px;
+  }
+  
+  .card-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 15px;
+  }
+  
+  /* Quantity Input */
+  .input-group-text {
+    background-color: #f8f9fa;
+    font-size: 1rem;
+  }
+  
+  .form-control {
+    font-size: 1rem;
+    padding: 0.5rem;
+    border-radius: 5px;
+  }
+  
+  /* Delivery Fees & Total Price */
+  h6.text-muted {
+    font-size: 1rem;
+    color: #6c757d;
+  }
+  
+  h4.font-weight-bold.text-primary {
+    font-size: 1.5rem;
+    color: #007bff;
+    font-weight: 600;
+  }
+  
+  /* Button Style with Hover Effect */
+  .btn-primary {
+    background-color: #007bff;
+    border: none;
+    border-radius: 10px;
+    padding: 12px 20px;
+    font-size: 1.2rem;
+    font-weight: 500;
+    width: 100%;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+  }
+  
+  .btn-primary:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+  }
+  
+  .btn-primary:active {
+    background-color: #003d7a;
+    transform: scale(0.98);
+  }
+  
+ 
