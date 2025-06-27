@@ -1,0 +1,196 @@
+/* General Styles for the Page */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f9f9f9;
+  margin: 0;
+  padding: 0;
+}
+
+.icon {
+  position: absolute;
+  left: 120px;
+  color: #00796b;
+  font-size: 48px;
+  transition: transform 0.3s ease, color 0.3s ease;
+  cursor: pointer;
+}
+
+.icon:hover {
+  transform: scale(1.2);
+  color: #023f35;
+}
+
+h1.text-center {
+  margin-top: 100px;
+  color: #00796b;
+  font-size: 2.5rem;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+/* Container Style */
+.container1 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+  gap: 2rem;
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Card Styles */
+.card {
+  position: relative;
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: none;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+}
+
+.card-img-top {
+  width: 100%;
+  height: 200px;
+  object-fit: contain;
+  padding: 1rem;
+  background: #f8f9fa;
+}
+
+.card-body {
+  padding: 1.5rem;
+}
+
+.card-title {
+  color: #00796b;
+  margin-bottom: 1rem;
+  font-weight: bold;
+}
+
+.card-text {
+  color: #00796b;
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+}
+
+/* Button Styling */
+.btn-primary {
+  background-color: #00796b;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 6px;
+  color: white;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+}
+
+.btn-primary:hover {
+  background-color: #023f35;
+  transform: translateY(-2px);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+.btn-primary i {
+  font-size: 1.1rem;
+}
+
+.wishlist-icon {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 1;
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.wishlist-icon:hover {
+  transform: scale(1.1);
+  background-color: white;
+}
+
+.wishlist-icon i {
+  font-size: 1.2rem;
+  color: #dc3545;
+}
+
+.wishlist-icon i.bi-heart {
+  color: #6c757d;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .container1 {
+    grid-template-columns: 1fr;
+    padding: 1rem;
+  }
+
+  .icon {
+    left: 20px;
+    font-size: 36px;
+  }
+
+  h1.text-center {
+    font-size: 2rem;
+    margin-top: 80px;
+  }
+}
+
+.button-group {
+  display: flex;
+  gap: 10px;
+  margin-top: 1rem;
+}
+
+.button-group .btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.button-group .btn-success {
+  background-color: #28a745;
+  border-color: #28a745;
+}
+
+.button-group .btn-success:hover {
+  background-color: #218838;
+  border-color: #1e7e34;
+  transform: translateY(-2px);
+}
+
+.button-group .btn-primary:hover {
+  transform: translateY(-2px);
+}
+
+/* Make sure both buttons have the same height */
+.button-group .btn i {
+  font-size: 1.1rem;
+}
+  
