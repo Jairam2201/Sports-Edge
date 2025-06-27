@@ -60,7 +60,7 @@ export class PlaceOrderComponent {
     private router: Router,
     private fb: FormBuilder
   ) {
-    this.order_item = this.service.place_order;
+    
     this.orderForm = this.fb.group({
       fullName: ['', [Validators.required]],
       phone: ['', [Validators.required, Validators.pattern('^[0-9]{10}$')]],
@@ -87,6 +87,13 @@ export class PlaceOrderComponent {
     });
   }
 
+  ngOnInit(): void {
+  this.service.order.subscribe((item) => {
+    this.order_item = item;
+    if (!item) this.router.navigate(['/cart']);
+  });
+}
+  
   private updateValidators() {
     // Reset all payment-related fields
     const cardFields = ['cardNumber', 'cardExpiry', 'cardCVV'];
