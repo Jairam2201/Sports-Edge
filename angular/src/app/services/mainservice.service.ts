@@ -7,7 +7,8 @@ import { Observable } from 'rxjs';
 })
 export class MainserviceService {
   private baseUrl = 'http://localhost:5233/api';
-
+  private orderSubject = new BehaviorSubject<any>(null);
+  order = this.orderSubject.asObservable();
   constructor(private http:HttpClient) { }
   orders:any=[]
   place_order:any
@@ -29,11 +30,9 @@ export class MainserviceService {
       })
     });
   }
-  // cart(item:any){
-  //   this.cart_items.push(item)
-  // }
+ 
   placeorder(item:any){
-    this.place_order=item
+    this.orderSubject.next(item);
   }
   ordered(order: any): Observable<any> {
     const userId = parseInt(localStorage.getItem('userId') || '0', 10);
