@@ -1,14 +1,14 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MainserviceService {
   private baseUrl = 'http://localhost:5233/api';
-  private orderSubject = new BehaviorSubject<any>(null);
-  order = this.orderSubject.asObservable();
+private orderSubject = new BehaviorSubject<any>(null);
+order = this.orderSubject.asObservable();
   constructor(private http:HttpClient) { }
   orders:any=[]
   place_order:any
@@ -30,7 +30,9 @@ export class MainserviceService {
       })
     });
   }
- 
+  // cart(item:any){
+  //   this.cart_items.push(item)
+  // }
   placeorder(item:any){
     this.orderSubject.next(item);
   }

@@ -7,47 +7,62 @@ import { Observable, map } from 'rxjs';
 })
 export class ProductsService {
   private baseUrl = 'http://localhost:5233/api';
-  name: any;
+  name: string = '';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
+  
   get(): Observable<any> {
     return this.http.get<any>(`${this.baseUrl}/products`).pipe(
       map(products => products.map((product: any) => ({
         ...product,
-        cart_status: product.cart_status || "Add to Cart",
-        rating: product.rating || Math.floor(Math.random() * 2) + 4, // Random rating between 4-5 for demo
-        ratingCount: product.ratingCount || Math.floor(Math.random() * 100) + 50 // Random count between 50-150
+
+        rating: product.rating || Math.floor(Math.random() * 2) + 4,
+        ratingCount: product.ratingCount || Math.floor(Math.random() * 100) + 50
       })))
     );
   }
 
-  items(name: any) {
+  items(name: string) {
     this.name = name;
   }
 
-  addToCart(name: any, category: any): Observable<any> {
-    return this.http.put(`${this.baseUrl}/products/${category}/${name}/addtocart`, {});
+
+  addToCart(item: any): Observable<any> {
+    const userId = parseInt(localStorage.getItem('userId') || '0', 10);
+    return this.http.post(`${this.baseUrl}/cartitems/user/${userId}`, item);
   }
 
-  toggleWishlist(name: any, category: any): Observable<any> {
-    return this.http.put(`${this.baseUrl}/products/${category}/${name}/wishlist`, {});
+  
+  toggleWishlist(item: any): Observable<any> {
+    const userId = parseInt(localStorage.getItem('userId') || '0', 10);
+    return this.http.post(`${this.baseUrl}/wishlistitems/user/${userId}`, item);
   }
 
-  getImageUrl(imageName: string): string {
-    if (!imageName) return 'assets/placeholder.jpg';  // Default image
-    if (imageName.startsWith('http')) return imageName;
-    if (imageName.startsWith('assets/')) return imageName;
-    
-    // Clean up the image name to ensure it's properly formatted
-    const cleanImageName = imageName.replace(/\\/g, '/').split('/').pop() || '';
-    return `${this.baseUrl}/products/images/${cleanImageName}`;  // Use the API endpoint for images
+
+  getCart(): Observable<any> {
+    const userId = localStorage.getItem('userId');
+    return this.http.get(`${this.baseUrl}/cartitems/user/${userId}`);
+  }
+
+  
+  deleteFromCart(productId: number): Observable<any> {
+    const userId = localStorage.getItem('userId');
+    return this.http.delete(`${this.baseUrl}/cartitems/user/${userId}/product/${productId}`);
+  }
+
+
+  getWishlist(): Observable<any> {
+    const userId = localStorage.getItem('userId');
+    return this.http.get(`${this.baseUrl}/wishlistitems/user/${userId}`);
+  }
+
+  deleteFromWishlist(productId: number): Observable<any> {
+    const userId = localStorage.getItem('userId');
+    return this.http.delete(`${this.baseUrl}/wishlistitems/user/${userId}/product/${productId}`);
   }
 
   resetAllCartStatuses(): Observable<any> {
     return this.http.post(`${this.baseUrl}/products/resetcart`, {});
   }
 }
-
-
-

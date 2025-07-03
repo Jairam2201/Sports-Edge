@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MainserviceService } from '../services/mainservice.service';
 import { CurrencyPipe, Location, NgFor, NgIf } from '@angular/common';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { ProductsService } from '../services/products.service';
 
 @Component({
@@ -17,7 +17,8 @@ export class CartComponent implements OnInit {
   constructor(
     private service: MainserviceService,
     private location: Location,
-    private products: ProductsService
+    private products: ProductsService,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -25,9 +26,15 @@ export class CartComponent implements OnInit {
   }
 
   loadCartItems() {
-    this.products.get().subscribe({
+    const userId = parseInt(localStorage.getItem('userId') || '0', 10);
+    if (!userId || userId <= 0) {
+      alert('User not authenticated.');
+      return;
+    }
+
+    this.products.getCart().subscribe({
       next: (data) => {
-        this.cart_items = data.filter((item: any) => item.cart_status === "Added to Cart");
+        this.cart_items = data;
       },
       error: (error) => {
         console.error('Error loading cart items:', error);
@@ -35,29 +42,14 @@ export class CartComponent implements OnInit {
     });
   }
 
-  resetCart() {
-    this.products.resetAllCartStatuses().subscribe({
-      next: () => {
-        this.cart_items = [];
-        alert('Cart has been reset successfully!');
-      },
-      error: (error) => {
-        console.error('Error resetting cart:', error);
-        alert('Failed to reset cart. Please try again.');
-      }
-    });
-  }
-
-  icon_click() {
-    this.location.back();
-  }
-
-  remove(index: any) {
+  remove(index: number) {
     const item = this.cart_items[index];
-    this.products.addToCart(item.name, item.category).subscribe({
+    const productId = item.productId;
+
+    this.products.deleteFromCart(productId).subscribe({
       next: () => {
         this.cart_items.splice(index, 1);
-        alert("Your item has been Removed😔");
+        alert("Your item has been removed 😔");
       },
       error: (error) => {
         console.error('Error removing item:', error);
@@ -66,17 +58,45 @@ export class CartComponent implements OnInit {
     });
   }
 
-  placeorder(index: any) {
-    const item = this.cart_items[index];
-    this.products.addToCart(item.name, item.category).subscribe({
+  placeorder(index: number) {
+    const item = { ...this.cart_items[index] };
+
+    this.products.deleteFromCart(item.productId).subscribe({
       next: () => {
-        this.service.placeorder(item);
+        this.service.placeorder(item); 
+        this.router.navigate(['/place_order']);
         this.cart_items.splice(index, 1);
+       
       },
       error: (error) => {
         console.error('Error placing order:', error);
         alert("Failed to place order. Please try again.");
       }
     });
+  }
+
+  resetCart() {
+    const confirmReset = confirm("Are you sure you want to clear the entire cart?");
+    if (!confirmReset) return;
+
+    const userId = parseInt(localStorage.getItem('userId') || '0', 10);
+
+    const deleteTasks = this.cart_items.map(item =>
+      this.products.deleteFromCart(item.productId).toPromise()
+    );
+
+    Promise.all(deleteTasks)
+      .then(() => {
+        this.cart_items = [];
+        alert('Cart has been reset successfully!');
+      })
+      .catch((error) => {
+        console.error('Error resetting cart:', error);
+        alert('Failed to reset cart. Please try again.');
+      });
+  }
+
+  icon_click() {
+    this.location.back();
   }
 }

@@ -22,22 +22,53 @@ export class WishlistComponent {
   }
 
   loadWishlistItems() {
-    this.productsService.get().subscribe(
-      (data) => {
-        this.wishlistItems = data.filter((item: any) => item.wishlist_status === "Added to Wishlist");
+    const userId = localStorage.getItem('userId');
+    if (!userId) {
+      alert('User not authenticated.');
+      return;
+    }
+
+    this.productsService.getWishlist().subscribe({
+      next: (data) => {
+        this.wishlistItems = data;
+      },
+      error: (err) => {
+        console.error('Error loading wishlist:', err);
       }
-    );
+    });
   }
 
   removeFromWishlist(item: any) {
-    this.productsService.toggleWishlist(item.name, item.category).subscribe(() => {
-      this.loadWishlistItems();
+    this.productsService.deleteFromWishlist(item.productId).subscribe({
+      next: () => {
+        this.loadWishlistItems();
+      },
+      error: (err) => {
+        console.error('Failed to remove from wishlist:', err);
+        alert('Failed to remove item from wishlist.');
+      }
     });
   }
 
   addToCart(item: any) {
-    this.productsService.addToCart(item.name, item.category).subscribe(() => {
-      this.removeFromWishlist(item);
+    const cartItem = {
+      name: item.name,
+      category: item.category,
+      img: item.img,
+      price: item.price,
+      productId: item.productId,
+      userId: parseInt(localStorage.getItem('userId') || '0', 10)
+    };
+
+    this.productsService.addToCart(cartItem).subscribe({
+      next: () => {
+        this.removeFromWishlist(item);
+        alert('Item moved to cart.');
+      },
+      error: (err) => {
+        console.error('Error adding to cart:', err);
+        alert('Failed to add item to cart.');
+      }
     });
   }
-} 
+}

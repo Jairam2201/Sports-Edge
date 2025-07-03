@@ -1,14 +1,14 @@
 <div class="container" *ngIf="orders.length!=0;else noorders">
     <div class="item-card" *ngFor="let item of orders">
       <div class="item-image">
-        <img [src]="item.productImage" [alt]="item.productName">
+         <img [src]="'public/' + item.productImage" [alt]="item.productName">
       </div>
       <div class="item-details">
         <h1 class="card-title">{{ item.productName }}</h1>
         <h1 class="cost">{{ item.totalPrice | currency :'INR' }}</h1>
         <h2>Quantity: {{item.quantity}}</h2>
         <p class="description">Your Order will be delivered soon...Thank You 🙏🙏</p>
-        <button class="buy-button" routerLink="/products">Buy Again</button>
+        <button class="buy-button" routerLink="/home">Buy Again</button>
       </div>
     </div>
   </div>

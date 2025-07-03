@@ -4,9 +4,12 @@
 
   <div class="container1">
     <div class="card" *ngFor="let item of products; let i = index">
-      <div class="wishlist-icon" (click)="toggleWishlist(i)">
-        <i class="bi" [ngClass]="{'bi-heart-fill': !item.wishlist_status, 'bi-heart': item.wishlist_status}"></i>
-      </div>
+     <div class="wishlist-icon" (click)="toggleWishlist(i)">
+  <i class="bi" [ngClass]="{
+    'bi-heart-fill': item.wishlist_status === 'Added to Wishlist',
+    'bi-heart': item.wishlist_status === 'Add to Wishlist'
+  }"></i>
+</div>
            <img [src]="'public/' + item.img" class="card-img-top" alt="...">
       <div class="card-body">
         <h3 class="card-title">{{ item.name }}</h3>

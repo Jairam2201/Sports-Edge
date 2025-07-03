@@ -100,10 +100,6 @@ export class BestsellersComponent implements OnInit {
     });
   }
 
-  getImageUrl(imageName: string): string {
-    return this.productsService.getImageUrl(imageName);
-  }
-
   viewProduct(product: any) {
     this.productsService.items(product.category);
   }
