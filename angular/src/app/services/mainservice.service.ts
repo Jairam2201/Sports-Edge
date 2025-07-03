@@ -64,4 +64,12 @@ console.log(userId)
     }
     return this.http.get(`${this.baseUrl}/orders/user/${userId}`);
   }
+
+  cancelOrder(orderId: string | number): Observable<any> {
+    return this.http.patch(`${this.baseUrl}/orders/${orderId}`, { status: 'Cancelled' }, {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    });
+  }
 }

@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
 import { MainserviceService } from '../services/mainservice.service';
 import { CurrencyPipe, Location, NgFor, NgIf } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 import { ProductsService } from '../services/products.service';
+import { isPlatformBrowser } from '@angular/common';
+import { PLATFORM_ID } from '@angular/core';
 
 @Component({
   selector: 'app-cart',
@@ -11,18 +13,32 @@ import { ProductsService } from '../services/products.service';
   templateUrl: './cart.component.html',
   styleUrl: './cart.component.css'
 })
-export class CartComponent implements OnInit {
+export class CartComponent implements OnInit, OnDestroy {
   cart_items: any[] = [];
 
   constructor(
     private service: MainserviceService,
     private location: Location,
     private products: ProductsService,
-    private router: Router
+    private router: Router,
+    @Inject(PLATFORM_ID) private platformId: Object
   ) {}
 
   ngOnInit() {
     this.loadCartItems();
+    if (isPlatformBrowser(this.platformId)) {
+      document.body.style.background = "url('/assets/homebackground2.jpg') no-repeat center center fixed";
+      document.body.style.backgroundSize = "cover";
+      document.body.style.backgroundColor = "#312f2f";
+    }
+  }
+
+  ngOnDestroy() {
+    if (isPlatformBrowser(this.platformId)) {
+      document.body.style.background = '';
+      document.body.style.backgroundSize = '';
+      document.body.style.backgroundColor = '';
+    }
   }
 
   loadCartItems() {

@@ -9,29 +9,32 @@ body {
 .icon {
   position: absolute;
   left: 120px;
-  color: #00796b;
+  color: #fff;
   font-size: 48px;
   transition: transform 0.3s ease, color 0.3s ease;
   cursor: pointer;
+  text-shadow: 2px 2px 8px #00796b, 0 0 10px #000;
 }
 
 .icon:hover {
   transform: scale(1.2);
-  color: #023f35;
+  color: #00c6ff;
 }
 
 h1.text-center {
-  margin-top: 100px;
-  color: #00796b;
+  margin-top: 0;
+  color: #fff;
   font-size: 2.5rem;
   font-weight: bold;
   text-transform: uppercase;
+  text-shadow: 2px 2px 8px #00796b, 0 0 10px #000;
+  letter-spacing: 2px;
 }
 
 /* Container Style */
 .container1 {
   display: grid;
-  grid-template-columns: repeat(4, 1fr); /* 4 products in a row */
+  grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
   gap: 2rem;
   padding: 2rem;
   max-width: 1200px;
@@ -59,9 +62,9 @@ h1.text-center {
 
 .card-img-top {
   width: 100%;
-  height: 200px; /* Increase the height for larger product images */
-  object-fit: cover; /* Ensure the image covers the area properly */
-  padding: 1rem;
+  height: 180px;
+  object-fit: contain;
+  padding: 0;
   background: #f8f9fa;
 }
 
@@ -73,14 +76,14 @@ h1.text-center {
   color: #00796b;
   margin-bottom: 1rem;
   font-weight: bold;
-  font-size: 1.5rem;;
+  font-size: 1.2rem;
 }
 
 .card-text {
   color: #00796b;
-  font-size: 1.25rem;
+  font-size: 1.1rem;
   font-weight: 600;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
 }
 
 /* Button Styling */
@@ -213,4 +216,28 @@ h1.text-center {
 /* Make sure both buttons have the same height */
 .button-group .btn i {
   font-size: 1.1rem;
+}
+
+.page-background {
+    min-height: 100vh;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    background-color: #312f2f;
+    background: url('/assets/homebackground2.jpg') no-repeat center center fixed;
+    background-size: cover;
+    background-attachment: fixed;
+    position: relative;
+    top: 0;
+    left: 0;
+}
+
+.text-center {
+    text-align: center;
+    color: #fff;
+    font-size: 2.5rem;
+    margin: 2rem 0;
+    font-weight: bold;
+    text-shadow: 2px 2px 8px #00796b, 0 0 10px #000;
+    letter-spacing: 2px;
 }

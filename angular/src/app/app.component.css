@@ -112,13 +112,12 @@
   
 .app-container {
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
+  display: block;
 }
 
 .content-container {
-  flex: 1;
-  padding: 1rem;
+  min-height: 100vh;
+  padding: 0;
 }
 
 .content-container.with-navbar {

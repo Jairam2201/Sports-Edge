@@ -1,3 +1,4 @@
+<div class="orders-background">
 <div class="container" *ngIf="orders.length!=0;else noorders">
     <div class="item-card" *ngFor="let item of orders">
       <div class="item-image">
@@ -8,7 +9,11 @@
         <h1 class="cost">{{ item.totalPrice | currency :'INR' }}</h1>
         <h2>Quantity: {{item.quantity}}</h2>
         <p class="description">Your Order will be delivered soon...Thank You 🙏🙏</p>
-        <button class="buy-button" routerLink="/home">Buy Again</button>
+        <div style="display: flex; gap: 10px;">
+          <button class="buy-button" routerLink="/home">Buy Again</button>
+          <button class="track-button" (click)="trackOrder(item)">Track Order</button>
+        </div>
+        <button class="rate-button" (click)="rateProduct(item)" style="margin-top: 10px; width: 100%;">Rate Product</button>
       </div>
     </div>
   </div>
@@ -20,4 +25,46 @@
       <a routerLink="/cart" class="btn-go-cart">Go to Cart</a>
     </div>
   </ng-template>
+</div>
+  
+<!-- Tracking Modal -->
+<div *ngIf="trackingModalOpen" class="tracking-modal-overlay">
+  <div class="tracking-modal">
+    <h2>Tracking for: {{ trackingProductName }}</h2>
+    <div class="tracking-timeline">
+      <div *ngFor="let step of trackingTimeline; let last = last" class="timeline-step">
+        <div class="timeline-icon">
+          <span *ngIf="step.done || step.current" class="checkmark">&#10003;</span>
+          <span *ngIf="!step.done && !step.current" class="circle"></span>
+        </div>
+        <div class="timeline-content">
+          <div [class.current-step]="step.current" [class.done-step]="step.done">{{ step.label }}</div>
+          <div class="timeline-date">{{ step.date }}</div>
+        </div>
+        <div *ngIf="!last" class="timeline-connector"></div>
+      </div>
+    </div>
+    <div class="tracking-info">
+      <div><strong>Tracking ID:</strong> {{ trackingId }}</div>
+    </div>
+    <button class="close-modal" (click)="closeTrackingModal()">Close</button>
+  </div>
+</div>
+  
+<!-- Rating Modal -->
+<div *ngIf="ratingModalOpen" class="tracking-modal-overlay">
+  <div class="tracking-modal">
+    <h2>Rate: {{ ratingProduct?.productName }}</h2>
+    <div class="star-rating" style="font-size: 2rem; margin-bottom: 1rem;">
+      <span *ngFor="let star of [1,2,3,4,5]" (click)="setRating(star)" [style.cursor]="'pointer'">
+        <span [style.color]="star <= ratingStars ? 'gold' : '#ccc'">&#9733;</span>
+      </span>
+    </div>
+    <textarea rows="4" style="width: 100%; margin-bottom: 1rem;" placeholder="Write your feedback..." [value]="ratingFeedback" (input)="handleFeedback($event)"></textarea>
+    <div style="display: flex; gap: 10px;">
+      <button (click)="submitRating()" [disabled]="ratingStars === 0">Submit</button>
+      <button (click)="closeRatingModal()">Close</button>
+    </div>
+  </div>
+</div>
   

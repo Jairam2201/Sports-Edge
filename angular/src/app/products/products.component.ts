@@ -20,7 +20,7 @@ export class ProductsComponent {
  
 
   constructor(
-    private productsService: ProductsService,
+    public productsService: ProductsService,
     private mainService: MainserviceService,
     private location: Location,
     private router: Router
