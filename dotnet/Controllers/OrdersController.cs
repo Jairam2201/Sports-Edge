@@ -45,5 +45,24 @@ namespace WebApplication1.Controllers
 			return Ok(orders);
 		}
 
+		[HttpPatch("{id}")]
+		public async Task<IActionResult> UpdateOrderStatus(int id, [FromBody] OrderStatusUpdateDto updateDto)
+		{
+			var order = await _context.Orders.FindAsync(id);
+			if (order == null)
+			{
+				return NotFound(new { message = "Order not found" });
+			}
+
+			order.Status = updateDto.Status;
+			await _context.SaveChangesAsync();
+			return Ok(new { message = $"Order status updated to {updateDto.Status}" });
+		}
+
+		// DTO for updating order status
+		public class OrderStatusUpdateDto
+		{
+			public string Status { get; set; }
+		}
 	}
 }
