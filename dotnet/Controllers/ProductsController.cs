@@ -23,68 +23,7 @@ namespace WebApplication1.Controllers
             // Fetch all products from the database
             return await _context.Products.ToListAsync();
         }
-        [HttpPut("{category}/{name}/addtocart")]
-        public async Task<IActionResult> AddToCart(string category, string name)
-        {
-            var product = await _context.Products.FirstOrDefaultAsync(p => p.category == category && p.name == name);
-
-            if (product == null)
-            {
-                return NotFound();
-            }
-
-            if (product.cart_status == "Added to Cart")
-            {
-                product.cart_status = "Add to Cart";
-            }
-            else
-            {
-                product.cart_status = "Added to Cart";
-            }
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, "Internal server error: " + ex.Message);
-            }
-
-            return Ok(product);
-        }
-
-        [HttpPut("{category}/{name}/wishlist")]
-        public async Task<IActionResult> ToggleWishlist(string category, string name)
-        {
-            var product = await _context.Products.FirstOrDefaultAsync(p => p.category == category && p.name == name);
-
-            if (product == null)
-            {
-                return NotFound();
-            }
-
-            if (product.wishlist_status == "Added to Wishlist")
-            {
-                product.wishlist_status = "Add to Wishlist";
-            }
-            else
-            {
-                product.wishlist_status = "Added to Wishlist";
-            }
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, "Internal server error: " + ex.Message);
-            }
-
-            return Ok(product);
-        }
-
+       
 
 
     }

@@ -10,5 +10,17 @@ namespace WebApplication1.Models
         public DbSet<Products> Products { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Order> Orders { get; set; }
+        public DbSet<CartItems> CartItems { get; set; }
+        public DbSet<WishlistItems> WishlistItems { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<CartItems>().ToTable("cart_items");
+            modelBuilder.Entity<WishlistItems>().ToTable("wishlist_items");
+
+            base.OnModelCreating(modelBuilder);
+
+
+        }
     }
 }

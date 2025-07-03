@@ -10,5 +10,6 @@
         public int price { get; set; }           // Price of the equipment
         public required string cart_status { get; set; } // Cart status
         public required string wishlist_status { get; set; }
+
     }
 }
