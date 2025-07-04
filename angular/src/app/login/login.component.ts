@@ -15,6 +15,7 @@ export class LoginComponent {
   email: string = '';
   password: string = '';
   errorMessage: string = '';
+  showPassword: boolean = false;
 
   constructor(private authService: AuthService, private router: Router) {}
 
@@ -38,5 +39,9 @@ this.authService.storeUserData(response.token, response.username, response.role,
 
   goToForgotPassword() {
     this.router.navigate(['/forgot-password']);
+  }
+
+  toggleShowPassword() {
+    this.showPassword = !this.showPassword;
   }
 }

@@ -21,9 +21,9 @@
             class="form-control"
           >
         </div>
-        <div class="form-group">
+        <div class="form-group" style="position: relative;">
           <input 
-            type="password" 
+            [type]="showPassword ? 'text' : 'password'" 
             id="password" 
             name="password" 
             [(ngModel)]="password" 
@@ -31,6 +31,13 @@
             placeholder="Password"
             class="form-control"
           >
+          <i 
+            class="bi" 
+            [ngClass]="showPassword ? 'bi-eye-slash' : 'bi-eye'" 
+            (click)="toggleShowPassword()"
+            style="position: absolute; right: 16px; top: 50%; transform: translateY(-50%); cursor: pointer; font-size: 1.2rem; color: #888;"
+            title="Show/Hide Password"
+          ></i>
         </div>
         <div class="form-group text-end">
           <a class="forgot-password-link" (click)="goToForgotPassword()">Forgot your password?</a>

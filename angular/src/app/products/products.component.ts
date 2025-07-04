@@ -1,4 +1,4 @@
-import { CurrencyPipe, Location, NgFor, NgClass } from '@angular/common';
+import { CurrencyPipe, Location, NgFor, NgClass, NgIf } from '@angular/common';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { MainserviceService } from '../services/mainservice.service';
@@ -7,7 +7,7 @@ import { ProductsService } from '../services/products.service';
 @Component({
   selector: 'app-products',
   standalone: true,
-  imports: [NgFor, CurrencyPipe, NgClass],
+  imports: [NgFor, CurrencyPipe, NgClass, NgIf],
   templateUrl: './products.component.html',
   styleUrl: './products.component.css'
 })
@@ -76,6 +76,12 @@ export class ProductsComponent {
     this.products = this.data.filter(
       (product: any) => product.category === this.productsService.name
     );
+    // Add random ratings and reviews to each product
+    this.products.forEach((product: any) => {
+      product.rating = (Math.random() * 1.5 + 3.5).toFixed(1); // 3.5 to 5.0
+      product.reviews = getRandomReviews();
+      product.showReviews = false; // Hide reviews by default
+    });
   });
 }
 
@@ -208,4 +214,55 @@ toggleWishlist(index: number): void {
   });
 }
 
+// Helper methods for star rendering in template
+getFullStars(rating: number): number[] {
+  return Array(Math.floor(rating)).fill(0);
+}
+
+getHalfStar(rating: number): boolean {
+  return rating % 1 >= 0.5;
+}
+
+getEmptyStars(rating: number): number[] {
+  const full = Math.floor(rating);
+  const half = rating % 1 >= 0.5 ? 1 : 0;
+  return Array(5 - full - half).fill(0);
+}
+
+toggleReviews(index: number): void {
+  console.log('toggleReviews called for product index:', index, this.products[index]);
+  this.products[index].showReviews = !this.products[index].showReviews;
+  if (this.products[index].showReviews) {
+    this.products[index].reviews = getRandomReviews();
+  }
+}
+}
+
+// Helper for random reviews
+function getRandomReviews() {
+  const names = [
+    'Amit', 'Priya', 'Rahul', 'Sneha', 'Vikram', 'Anjali', 'Rohit', 'Neha', 'Suresh', 'Divya',
+    'Kiran', 'Meena', 'Arjun', 'Pooja', 'Sanjay', 'Ritu', 'Deepak', 'Shreya', 'Manoj', 'Kavya'
+  ];
+  const texts = [
+    'Excellent product! Highly recommended.',
+    'Good quality and fast delivery.',
+    'Value for money. Satisfied with the purchase.',
+    'Product matches the description perfectly.',
+    'Very comfortable and durable.',
+    'Not as expected, but still decent.',
+    'Amazing! Will buy again.',
+    'Packaging was great. Product is genuine.',
+    'Customer service was helpful.',
+    'Five stars for quality and price.'
+  ];
+  const count = Math.floor(Math.random() * 2) + 2; // 2 or 3 reviews
+  const reviews = [];
+  for (let i = 0; i < count; i++) {
+    const name = names[Math.floor(Math.random() * names.length)];
+    const text = texts[Math.floor(Math.random() * texts.length)];
+    const rating = Math.floor(Math.random() * 3) + 3; // 3, 4, or 5
+    reviews.push({ name, text, rating });
+  }
+  return reviews;
 }

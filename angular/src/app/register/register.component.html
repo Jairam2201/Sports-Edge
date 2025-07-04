@@ -24,11 +24,21 @@
           </small>
         </div>
         <div class="form-group">
-          <input type="password" formControlName="password" placeholder="Password" class="form-control">
+          <input type="password" formControlName="password" placeholder="Password" class="form-control" (input)="onPasswordInput()">
           <small class="text-danger" *ngIf="submitted && f['password'].errors">
             <span *ngIf="f['password'].errors['required']">Password is required</span>
-            <span *ngIf="f['password'].errors['minlength']">Password must be at least 6 characters</span>
+            <span *ngIf="f['password'].errors['minlength']">Password must be at least 8 characters</span>
+            <span *ngIf="f['password'].errors['complexity']">
+              Password must contain at least 8 characters, including one uppercase letter, one lowercase letter, one number, and one special character.
+            </span>
           </small>
+          <ul class="password-conditions">
+            <li><span [ngClass]="passwordConditions.length ? 'tick' : 'cross'">{{ passwordConditions.length ? '✔️' : '❌' }}</span> At least 8 characters</li>
+            <li><span [ngClass]="passwordConditions.uppercase ? 'tick' : 'cross'">{{ passwordConditions.uppercase ? '✔️' : '❌' }}</span> At least one uppercase letter</li>
+            <li><span [ngClass]="passwordConditions.lowercase ? 'tick' : 'cross'">{{ passwordConditions.lowercase ? '✔️' : '❌' }}</span> At least one lowercase letter</li>
+            <li><span [ngClass]="passwordConditions.number ? 'tick' : 'cross'">{{ passwordConditions.number ? '✔️' : '❌' }}</span> At least one number</li>
+            <li><span [ngClass]="passwordConditions.special ? 'tick' : 'cross'">{{ passwordConditions.special ? '✔️' : '❌' }}</span> At least one special character</li>
+          </ul>
         </div>
         <div class="form-group">
           <input type="password" formControlName="confirmPassword" placeholder="Confirm Password" class="form-control">

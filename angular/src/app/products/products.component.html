@@ -15,6 +15,46 @@
         <div class="card-body">
           <h3 class="card-title">{{ item.name }}</h3>
           <h4 class="card-text">{{ item.price | currency:'INR' }}</h4>
+
+          <!-- Product Rating -->
+          <div class="product-rating">
+            <span class="stars">
+              <ng-container *ngFor="let _ of getFullStars(item.rating)">
+                <i class="bi bi-star-fill"></i>
+              </ng-container>
+              <ng-container *ngIf="getHalfStar(item.rating)">
+                <i class="bi bi-star-half"></i>
+              </ng-container>
+              <ng-container *ngFor="let _ of getEmptyStars(item.rating)">
+                <i class="bi bi-star"></i>
+              </ng-container>
+            </span>
+            <span class="rating-number">{{ item.rating }}/5</span>
+          </div>
+
+          <!-- Product Reviews Toggle Button -->
+          <button class="btn btn-outline-info btn-sm mb-2" (click)="toggleReviews(i)">
+            Customer Reviews
+          </button>
+          <!-- Product Reviews (hidden by default, shown on click) -->
+          <div class="product-reviews" *ngIf="item.showReviews">
+            <div class="review-title">Customer Reviews:</div>
+            <div *ngFor="let review of item.reviews" class="review">
+              <div class="review-header">
+                <span class="reviewer">{{ review.name }}</span>
+                <span class="review-stars">
+                  <ng-container *ngFor="let _ of [].constructor(review.rating)">
+                    <i class="bi bi-star-fill" style="color: #ffc107;"></i>
+                  </ng-container>
+                  <ng-container *ngFor="let _ of [].constructor(5 - review.rating)">
+                    <i class="bi bi-star" style="color: #ccc;"></i>
+                  </ng-container>
+                </span>
+              </div>
+              <span class="review-text">{{ review.text }}</span>
+            </div>
+          </div>
+
           <div class="button-group">
             <button (click)="add(i)" class="btn btn-primary">
               <i class="bi bi-cart-plus"></i> {{item.cart_status}}

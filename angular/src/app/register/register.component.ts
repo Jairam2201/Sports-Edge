@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -18,12 +18,19 @@ export class RegisterComponent {
   submitted = false;
   passwordMismatch = false;
   registerError: string = '';
+  passwordConditions = {
+    length: false,
+    uppercase: false,
+    lowercase: false,
+    number: false,
+    special: false
+  };
 
   constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
     this.registerForm = this.fb.group({
       username: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
+      password: ['', [Validators.required, Validators.minLength(8), this.passwordComplexityValidator]],
       confirmPassword: ['', Validators.required]
     }, {
       validator: this.passwordMatchValidator
@@ -38,6 +45,14 @@ export class RegisterComponent {
   passwordMatchValidator(g: FormGroup) {
     return g.get('password')?.value === g.get('confirmPassword')?.value
       ? null : { 'mismatch': true };
+  }
+
+  passwordComplexityValidator(control: AbstractControl): ValidationErrors | null {
+    const value = control.value;
+    if (!value) return null;
+    // At least 8 chars, one uppercase, one lowercase, one number, one special char
+    const pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]).{8,}$/;
+    return pattern.test(value) ? null : { 'complexity': true };
   }
 
   // This method will be called on form submission
@@ -87,5 +102,14 @@ export class RegisterComponent {
     } else {
       this.registerError = 'Please fill all required fields correctly.';
     }
+  }
+
+  onPasswordInput() {
+    const value = this.registerForm.get('password')?.value || '';
+    this.passwordConditions.length = value.length >= 8;
+    this.passwordConditions.uppercase = /[A-Z]/.test(value);
+    this.passwordConditions.lowercase = /[a-z]/.test(value);
+    this.passwordConditions.number = /\d/.test(value);
+    this.passwordConditions.special = /[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/.test(value);
   }
 }
